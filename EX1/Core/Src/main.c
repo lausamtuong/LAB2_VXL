@@ -210,27 +210,34 @@ int main(void)
 
 	setTimer1(50);
 	setTimer2(50);
-
+	int status= 0;
+	HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,1);
 	HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
-
 	while (1) {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 		if (timer1_flag == 1) {
 			setTimer1(50);
-			HAL_GPIO_TogglePin(EN0_GPIO_Port, EN0_Pin);
-		}
-		if (timer2_flag == 1) {
-			setTimer2(50);
-
-			HAL_GPIO_TogglePin(EN1_GPIO_Port, EN1_Pin);
-
-				}
-		if(HAL_GPIO_ReadPin(EN0_GPIO_Port, EN0_Pin)==RESET){
-				display7SEG(1);
+			switch (status){
+				case 0:{
+					display7SEG(1);
+					HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,0);
+					HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
+					status++;
+					break;
+				};
+				case 1:{
+					display7SEG(2);
+					HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,1);
+					HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,0);
+					status=0;
+					break;
+				};
+				default:break;
 			}
-			else display7SEG(2);
+
+		}
 
   /* USER CODE END 3 */
 }
