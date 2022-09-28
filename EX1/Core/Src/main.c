@@ -25,6 +25,7 @@
 #include "SOFTWARE_TIMER.h"
 #include "BUTTON.h"
 #include "display7SEG.h"
+#include "update7SEG.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -112,7 +113,8 @@ int main(void)
 			setTimer1(50);
 			switch (status){
 				case 0:{
-					display7SEG(1);
+//					display7SEG(1);
+					update7SEG(1);
 					HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,0);
 					HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
 					HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin,1);
