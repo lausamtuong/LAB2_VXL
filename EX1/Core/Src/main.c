@@ -58,7 +58,27 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+int counter_led1 = 50;
+int counter_led2 = 100;
+int status= 0;
+int timer_flag1=0;
+int timer_flag2=0;
+void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
+{
+	if(counter_led1 > 0 ){
+		counter_led1 --;
+			if(counter_led1 <= 0){
+				timer_flag1=1;
+			}
+	}
+	if(counter_led2 > 0 ){
+			counter_led2 --;
+				if(counter_led2 <= 0){
+					timer_flag2=1;
+				}
+		}
 
+}
 /* USER CODE END 0 */
 
 /**
@@ -108,8 +128,9 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		if (timer1_flag == 1) {
-			setTimer1(50);
+		if (timer_flag1 == 1) {
+			counter_led1 = 50;
+			timer_flag1=0;
 			switch (status){
 				case 0:{
 					display7SEG(1);
@@ -151,8 +172,9 @@ int main(void)
 			}
 
 		}
-		if (timer2_flag==1){
-			setTimer2(100);
+		if (timer_flag2==1){
+			counter_led2 = 100;
+			timer_flag2=0;
 			HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
 		}
 		}
@@ -301,12 +323,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
-		{
-			 if (htim->Instance == TIM2) {
-				timerRun();
-			    }
-			 }
+
 
 /* USER CODE END 4 */
 
