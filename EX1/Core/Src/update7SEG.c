@@ -7,7 +7,6 @@
 #include "update7SEG.h"
 #include "display7SEG.h"
 
-
 led_buffer[4] = {9 , 2 , 3 , 4};
 void update7SEG(int index){
 	index %=4;
