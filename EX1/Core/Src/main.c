@@ -26,7 +26,7 @@
 #include "BUTTON.h"
 #include "display7SEG.h"
 #include "update7SEG.h"
-#include "fsm_automatic.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -60,6 +60,18 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+int counter = 50 ;
+index_led=0;
+void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim ){
+	if(counter > 0){
+		counter --;
+		if(counter <= 0 ){
+			update7SEG(index_led++);
+			counter=50;
+		}
+	}
+
+}
 
 /* USER CODE END 0 */
 
@@ -100,12 +112,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
 
-	status= 0;
+
 	while (1) {
     /* USER CODE END WHILE */
 
-
-		fsm_automatic_run();
 		}
 
   /* USER CODE END 3 */
@@ -252,12 +262,6 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
-		{
-			 if (htim->Instance == TIM2) {
-				timerRun();
-			    }
-			 }
 
 /* USER CODE END 4 */
 

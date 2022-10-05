@@ -29,6 +29,7 @@ void display7SEG(int count_time){
 			  HAL_GPIO_WritePin(GPIOB,GPIO_PIN_3,1);
 			  HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,1);
 			  HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,1);
+
 			  break ;
 		  	  };
 		  case 2:{
@@ -39,6 +40,7 @@ void display7SEG(int count_time){
 			   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,0);
 			   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,0);
 			   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,1);
+
 			   break ;
 		  };
 		  case 3: {
@@ -49,6 +51,7 @@ void display7SEG(int count_time){
 			  HAL_GPIO_WritePin(GPIOB,GPIO_PIN_4,1);
 			  HAL_GPIO_WritePin(GPIOB,GPIO_PIN_5,1);
 			  HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,0);
+
 			  break;
 		  };
 		  case 4:{
