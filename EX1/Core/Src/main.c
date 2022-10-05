@@ -171,7 +171,21 @@ void display7SEG(int count_time){
 
 }
 /* USER CODE END 0 */
+int counter = 50;
+int status= 0;
+int timer_flag=0;
+void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
+{
+	if(counter > 0 )
+		{
+			counter --;
+			if(counter <= 0){
+				timer_flag=1;
 
+			}
+		}
+
+}
 /**
   * @brief  The application entry point.
   * @retval int
@@ -208,23 +222,20 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-	setTimer1(50);
-	setTimer2(50);
-	int status= 0;
 	HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,1);
 	HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
 	while (1) {
     /* USER CODE END WHILE */
-
     /* USER CODE BEGIN 3 */
-		if (timer1_flag == 1) {
-			setTimer1(50);
+			if(timer_flag==1){
+				counter = 50;
+				timer_flag=0;
 			switch (status){
 				case 0:{
 					display7SEG(1);
 					HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin,0);
 					HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin,1);
-					status++;
+					status=1;
 					break;
 				};
 				case 1:{
@@ -235,9 +246,9 @@ int main(void)
 					break;
 				};
 				default:break;
-			}
 
 		}
+			}
 
   /* USER CODE END 3 */
 }
@@ -383,13 +394,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-		void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
-		{
 
-			 if (htim->Instance == TIM2) {
-				timerRun();
-			    }
-			 }
 
 /* USER CODE END 4 */
 
