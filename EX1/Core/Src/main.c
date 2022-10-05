@@ -111,13 +111,14 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-
-	setTimer0(50);
+	setTimer0(100);
+	setTimer1(25);
 	while (1)
     /* USER CODE END WHILE */
 	{
+		UpdateClockBuffer();
 		 if(timer0_flag == 1){
-				  setTimer0(50);
+				  setTimer0(100);
 				  second++;
 				  if(second >= 60){
 					  second = 0;
@@ -130,11 +131,15 @@ int main(void)
 				  if(hour > 24){
 					  hour = 0;
 				  }
-				  UpdateClockBuffer();
-				  if(index_led>=4) index_led=0;
-				  update7SEG(index_led++);
+
 				  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
 			  }
+		 if(timer1_flag == 1){
+			  setTimer1(25);
+			if(index_led>=4) index_led=0;
+				update7SEG(index_led++);
+					  }
+
 
 		}
 
