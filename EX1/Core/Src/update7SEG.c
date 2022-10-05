@@ -6,9 +6,9 @@
  */
 #include "update7SEG.h"
 #include "display7SEG.h"
-const int MAX_LED = 4;
 
-int led_buffer[4] = {9 , 2 , 3 , 4};
+
+led_buffer[4] = {9 , 2 , 3 , 4};
 void update7SEG(int index){
 	index %=4;
 	switch (index){
