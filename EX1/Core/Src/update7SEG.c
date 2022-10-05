@@ -20,12 +20,12 @@ void update7SEG(int index){
 		break;
 	};
 	case 2:{
-			display7SEG(led_buffer[2]);
-			break;
+		display7SEG(led_buffer[2]);
+		break;
 		};
 	case 3:{
-			display7SEG(led_buffer[3]);
-			break;
+		display7SEG(led_buffer[3]);
+		break;
 		}
 	}
 }

@@ -25,7 +25,6 @@ void timerRun(){
 	{
 		timer1_counter --;
 		if(timer1_counter <= 0){
-
 			timer1_flag=1;
 		}
 	}
