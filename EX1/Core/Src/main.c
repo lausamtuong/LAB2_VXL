@@ -64,14 +64,7 @@ int hour = 15 , minute = 8 , second = 54;
 int counter = 50 ;
 index_led=0;
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim ){
-	if(counter > 0){
-		counter --;
-		if(counter <= 0 ){
-			if(index_led>=4) index_led=0;
-			update7SEG(index_led++);
-			counter=50;
-		}
-	}
+	timerRun();
 
 }
 void UpdateClockBuffer(){
@@ -119,26 +112,30 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
 
-
+	setTimer0(50);
 	while (1)
     /* USER CODE END WHILE */
 	{
-		  second++;
-		  if(second >= 60){
-			  second = 0;
-			  minute++;
-	 }
+		 if(timer0_flag == 1){
+				  setTimer0(50);
+				  second++;
+				  if(second >= 60){
+					  second = 0;
+					  minute++;
+				  }
+				  if(minute >= 60){
+					  minute = 0;
+					  hour++;
+				  }
+				  if(hour > 24){
+					  hour = 0;
+				  }
+				  UpdateClockBuffer();
+				  if(index_led>=4) index_led=0;
+				  update7SEG(index_led++);
+				  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+			  }
 
-		  if(minute >= 60){
-			  minute = 0;
-			  hour++;
-		  }
-		  if(hour >= 24){
-			  hour = 0;
-		  }
-
-		  UpdateClockBuffer();
-		  HAL_Delay(1000);
 		}
 
   /* USER CODE END 3 */
